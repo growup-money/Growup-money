@@ -1,0 +1,474 @@
+/* ========== FONTS ========== */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;600&family=Cinzel+Decorative:wght@700&family=Montserrat:wght@300;400;700&display=swap');
+
+/* ========== RESET ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+
+:root {
+  --bg-deep: #03000A;
+  --purple-neon: #8A2BE2;
+  --purple-bright: #A020F0;
+  --lavender: #DDA0DD;
+  --card-bg: #0B071E;
+  --text-muted: #8F8F9F;
+  --white: #FFFFFF;
+  --planet-size: 1200px;
+}
+
+body {
+  background: var(--bg-deep);
+  font-family: 'Montserrat', 'Inter', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  cursor: none;
+}
+
+/* ========== MOUSE GLOW ========== */
+.mouse-glow {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(138,43,226,0.20) 0%, rgba(160,32,240,0.06) 45%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  mix-blend-mode: screen;
+}
+
+/* ========== INTRO OVERLAY ========== */
+#intro-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1000;
+  background: radial-gradient(ellipse at center, #0B071E 0%, #03000A 85%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease-in-out;
+  overflow: hidden;
+}
+#intro-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+.intro-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(45deg, rgba(160,32,240,0.08), rgba(138,43,226,0.04), transparent);
+  animation: introBgShift 5s ease-in-out infinite alternate;
+}
+@keyframes introBgShift {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.15); opacity: 0.7; }
+}
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.logo-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Intro Text */
+.top-line {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 5rem;
+  font-weight: 700;
+  color: var(--white);
+  text-shadow: 0 0 30px var(--purple-bright), 0 0 70px var(--purple-neon);
+  letter-spacing: 10px;
+  opacity: 0;
+  animation: letterFadeIn 1s ease-out 0.4s forwards, textGlow 2s ease-in-out 1.4s infinite alternate;
+}
+.bottom-line {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  color: var(--lavender);
+  text-shadow: 0 0 20px var(--purple-neon);
+  letter-spacing: 12px;
+  opacity: 0;
+  animation: letterFadeIn 1s ease-out 0.9s forwards, textGlow 2s ease-in-out 1.9s infinite alternate;
+}
+@keyframes letterFadeIn {
+  0% { opacity: 0; transform: translateY(25px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes textGlow {
+  0% { text-shadow: 0 0 20px var(--purple-bright), 0 0 50px var(--purple-neon); }
+  100% { text-shadow: 0 0 40px var(--lavender), 0 0 90px var(--purple-bright); }
+}
+
+/* Intro Emblem */
+.logo-emblem-intro {
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  animation: emblemAppear 1s ease-out 1.4s forwards;
+}
+.emblem-svg {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 0 20px var(--purple-bright));
+  animation: emblemPulse 2s ease-in-out 1.5s infinite;
+}
+@keyframes emblemAppear {
+  0% { opacity: 0; transform: scale(0.4); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes emblemPulse {
+  0%, 100% { filter: drop-shadow(0 0 18px var(--purple-bright)); }
+  50% { filter: drop-shadow(0 0 35px var(--lavender)); }
+}
+
+/* ========== MAIN SITE LOGO (TOP) ========== */
+.logo-container {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  text-align: center;
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.logo-top {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2.2rem;
+  color: var(--white);
+  text-shadow: 0 0 18px var(--purple-neon);
+  animation: logoGlow 2s ease-in-out infinite alternate;
+}
+.logo-bottom {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  color: var(--lavender);
+  text-shadow: 0 0 10px var(--purple-bright);
+  letter-spacing: 6px;
+  animation: logoGlow 2s ease-in-out 0.5s infinite alternate;
+}
+@keyframes logoGlow {
+  0% { text-shadow: 0 0 10px var(--purple-bright); }
+  100% { text-shadow: 0 0 25px var(--lavender), 0 0 50px var(--purple-neon); }
+}
+.logo-emblem {
+  width: 45px;
+  height: 45px;
+  margin: 3px 0;
+}
+.emblem-svg-small {
+  width: 100%; height: 100%;
+  filter: drop-shadow(0 0 12px var(--purple-bright));
+  animation: emblemPulse 2s ease-in-out infinite;
+}
+
+/* ========== SOLAR SYSTEM STAGING ========== */
+.solar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  perspective: 800px;
+  transform-style: preserve-3d;
+}
+
+.camera-rig {
+  position: absolute;
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.solar_systm {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%) translateZ(calc(var(--planet-z) + var(--camera-z, 0px)));
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.6s;
+  pointer-events: none;
+  height: var(--planet-size);
+  width: var(--planet-size);
+  margin: auto;
+  border-radius: 50%;
+  opacity: 0.25;
+}
+
+.solar_systm.active {
+  opacity: 1;
+  z-index: 5;
+  pointer-events: all;
+}
+.solar_systm.active .planet {
+  box-shadow: 0 0 90px 25px rgba(138,43,226,0.55);
+}
+.solar_systm.active .planet_description {
+  opacity: 1;
+  transition: opacity 0.6s 0.4s;
+}
+.solar_systm.active .moon {
+  opacity: 1;
+}
+.solar_systm.active .trajectory {
+  opacity: 0.35;
+}
+.solar_systm.active .overlay {
+  opacity: 1;
+}
+
+/* ========== PLANETS ========== */
+.planet {
+  width: var(--planet-size);
+  height: var(--planet-size);
+  border-radius: 50%;
+  background-size: cover !important;
+  background-position: center !important;
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotatex(4deg) scaleX(0.89);
+  margin: auto;
+  transition: box-shadow 0.6s, opacity 0.5s;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.7);
+}
+
+/* Planet Textures (Free CDN URLs) */
+.planet.mercury { background: url('https://www.solarsystemscope.com/textures/download/2k_mercury.jpg') center/cover; }
+.planet.venus   { background: url('https://www.solarsystemscope.com/textures/download/2k_venus_atmosphere.jpg') center/cover; }
+.planet.earth   { background: url('https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg') center/cover; }
+.planet.mars    { background: url('https://www.solarsystemscope.com/textures/download/2k_mars.jpg') center/cover; }
+.planet.jupiter { background: url('https://www.solarsystemscope.com/textures/download/2k_jupiter.jpg') center/cover; }
+.planet.saturn  { background: url('https://www.solarsystemscope.com/textures/download/2k_saturn.jpg') center/cover; }
+.planet.uranus  { background: url('https://www.solarsystemscope.com/textures/download/2k_uranus.jpg') center/cover; }
+.planet.neptune { background: url('https://www.solarsystemscope.com/textures/download/2k_neptune.jpg') center/cover; }
+.planet.pluto   { background: url('https://www.solarsystemscope.com/textures/download/2k_makemake_fictional.jpg') center/cover; }
+
+/* ========== OVERLAY (planet shadow) ========== */
+.overlay {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: auto;
+  border-bottom: 1020px solid var(--bg-deep);
+  width: 1800px;
+  height: 620px;
+  border-radius: 100%;
+  opacity: 0.65;
+  box-shadow: 0px -190px 215px 110px var(--bg-deep) inset;
+  z-index: 0;
+}
+
+/* ========== MOONS ========== */
+.moon {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background: #888;
+  position: absolute;
+  text-align: center;
+  color: var(--white);
+  text-transform: uppercase;
+  opacity: 0;
+  transition: all 0.6s 0.2s;
+}
+.moon h2 {
+  font-weight: 100;
+  font-size: 40px;
+  letter-spacing: 5px;
+  margin: 0;
+  position: relative;
+  top: -120px;
+}
+.moon h3 {
+  font-weight: 100;
+  font-size: 20px;
+  letter-spacing: 5px;
+  color: #fea082;
+  margin: 0;
+  position: relative;
+  top: -120px;
+}
+
+/* ========== TRAJECTORIES (orbit rings) ========== */
+.trajectory, .solar_systm .planet .trajectory {
+  border: 2px dashed rgba(255,255,255,0.5);
+  position: absolute;
+  border-radius: 3400px;
+  background: none !important;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+/* ========== PLANET DESCRIPTION ========== */
+.planet_description {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60%;
+  text-align: center;
+  opacity: 0;
+  z-index: 3;
+  color: var(--white);
+}
+.planet_description h2 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--lavender);
+}
+.planet_description h1 {
+  font-size: 48px;
+  font-weight: 700;
+  text-shadow: 0 0 25px var(--purple-neon);
+  margin: 5px 0;
+}
+.planet_description p {
+  max-width: 400px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ========== LEFT MENU ========== */
+body label.menu {
+  color: var(--white);
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  left: 50px;
+  z-index: 20;
+}
+body label.menu:after {
+  display: block;
+  width: 12px; height: 12px;
+  border: 2px solid var(--white);
+  border-radius: 60px;
+  content: "";
+  position: absolute;
+  top: -4px; left: -4px;
+}
+body label.menu .preview {
+  width: 30px; height: 30px;
+  background: yellow;
+  float: left;
+  background-size: auto 100% !important;
+  position: absolute;
+  border-radius: 100px;
+  box-shadow: 0 -13px 10px 2px black inset;
+}
+body label.menu .info {
+  position: relative;
+  left: 50px;
+  top: 1px;
+}
+body label.menu h2 {
+  font-size: 11px;
+  font-weight: 100;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.4;
+  margin-bottom: 4px;
+}
+body label.menu h2 .pip {
+  width: 0;
+  height: 9px;
+  float: left;
+  position: relative;
+  top: 3px;
+  transition: all 0.3s;
+  margin-right: 0px;
+}
+body label.menu h3 {
+  font-size: 8px;
+  letter-spacing: 1px;
+  opacity: 0.3;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+
+/* Preview Thumbnails */
+body label.mercury > .preview { background: url('https://www.solarsystemscope.com/textures/download/2k_mercury.jpg') !important; }
+body label.venus > .preview   { background: url('https://www.solarsystemscope.com/textures/download/2k_venus_atmosphere.jpg') !important; }
+body label.earth > .preview   { background: url('https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg') !important; }
+body label.mars > .preview    { background: url('https://www.solarsystemscope.com/textures/download/2k_mars.jpg') !important; }
+body label.jupiter > .preview { background: url('https://www.solarsystemscope.com/textures/download/2k_jupiter.jpg') !important; }
+body label.saturn > .preview  { background: url('https://www.solarsystemscope.com/textures/download/2k_saturn.jpg') !important; }
+body label.uranus > .preview  { background: url('https://www.solarsystemscope.com/textures/download/2k_uranus.jpg') !important; }
+body label.neptune > .preview { background: url('https://www.solarsystemscope.com/textures/download/2k_neptune.jpg') !important; }
+body label.pluto > .preview   { background: url('https://www.solarsystemscope.com/textures/download/2k_makemake_fictional.jpg') !important; }
+
+/* Pip Colors */
+body label.menu.mercury h2 .pip { background: #E8927C; }
+body label.menu.venus h2 .pip   { background: #b45d15; }
+body label.menu.earth h2 .pip   { background: #26daaa; }
+body label.menu.mars h2 .pip    { background: #e55f45; }
+body label.menu.jupiter h2 .pip { background: orange; }
+body label.menu.saturn h2 .pip  { background: #b29d81; }
+body label.menu.uranus h2 .pip  { background: #8dcdd8; }
+body label.menu.neptune h2 .pip { background: #4f83e2; }
+body label.menu.pluto h2 .pip   { background: #FF8732; }
+
+/* Menu Vertical Positions */
+body label.menu:nth-of-type(1)  { top: calc(50vh + 100px + (48px * 1) - 369px); }
+body label.menu:nth-of-type(2)  { top: calc(50vh + 100px + (48px * 2) - 369px); }
+body label.menu:nth-of-type(3)  { top: calc(50vh + 100px + (48px * 3) - 369px); }
+body label.menu:nth-of-type(4)  { top: calc(50vh + 100px + (48px * 4) - 369px); }
+body label.menu:nth-of-type(5)  { top: calc(50vh + 100px + (48px * 5) - 369px); }
+body label.menu:nth-of-type(6)  { top: calc(50vh + 100px + (48px * 6) - 369px); }
+body label.menu:nth-of-type(7)  { top: calc(50vh + 100px + (48px * 7) - 369px); }
+body label.menu:nth-of-type(8)  { top: calc(50vh + 100px + (48px * 8) - 369px); }
+body label.menu:nth-of-type(9)  { top: calc(50vh + 100px + (48px * 9) - 369px); }
+
+/* Hide radio inputs */
+body input[type=radio][name=planet] {
+  appearance: none;
+  position: absolute;
+}
+
+/* ========== SCROLLBAR HIDE ========== */
+::-webkit-scrollbar { width: 0; }
+html { scroll-behavior: smooth; }
+
+/* ========== MOBILE RESPONSIVE ========== */
+@media (max-width: 768px) {
+  :root { --planet-size: 500px; }
+  
+  .top-line { font-size: 2.8rem; letter-spacing: 6px; }
+  .bottom-line { font-size: 1.6rem; letter-spacing: 8px; }
+  .logo-emblem-intro { width: 70px; height: 70px; }
+  
+  .logo-top { font-size: 1.5rem; }
+  .logo-bottom { font-size: 1rem; letter-spacing: 4px; }
+  .logo-emblem { width: 35px; height: 35px; }
+  
+  body label.menu { left: 15px; }
+  body label.menu h2 { font-size: 9px; }
+  body label.menu h3 { font-size: 7px; }
+  body label.menu .preview { width: 22px; height: 22px; }
+  body label.menu .info { left: 35px; }
+  
+  .planet_description h1 { font-size: 28px; }
+  .planet_description p { font-size: 12px; max-width: 280px; }
+  
+  .overlay { width: 800px; height: 300px; border-bottom-width: 500px; }
+  .moon { width: 100px; height: 100px; }
+  .moon h2 { font-size: 20px; top: -60px; }
+  .moon h3 { font-size: 12px; top: -60px; }
+  
+  .mouse-glow { width: 250px; height: 250px; }
+}
